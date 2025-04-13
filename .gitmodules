@@ -1,0 +1,3 @@
+[submodule "CMake/WindowsToolchain"]
+	path = CMake/WindowsToolchain
+	url = https://github.com/MarkSchofield/WindowsToolchain.git
