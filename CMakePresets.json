@@ -1,0 +1,201 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "Windows Default",
+            "displayName": "Windows Build",
+            "description": "General Windows settings that apply to all configurations",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "toolset": {
+                "value": "host=x64",
+                "strategy": "external"
+            },
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/bin/${presetName}",
+            "installDir": "${sourceDir}/out/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl",
+                "CMAKE_TOOLCHAIN_FILE": "CMake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
+                "CMAKE_VS_VERSION_PRERELEASE": "ON",
+                "VS_EXPERIMENTAL_MODULE": "OFF",
+                "VS_USE_SPECTRE_MITIGATION_ATLMFC_RUNTIME": "OFF",
+                "VS_USE_SPECTRE_MITIGATION_RUNTIME": "OFF",
+                "ENABLE_CPPCHECK_DEFAULT": "FALSE",
+                "ENABLE_CLANG_TIDY_DEFAULT": "FALSE"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "hostOS": [
+                        "Windows"
+                    ],
+                    "intelliSenseMode": "windows-msvc-x64"
+                }
+            }
+        },
+        {
+            "name": "Windows MSVC Debug",
+            "displayName": "Windows x64 Debug",
+            "description": "Windows x64 Debug settings for MSBuild toolchain that apply to msvc",
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_DEVELOPER_MODE": "ON"
+            }
+        },
+        {
+            "name": "Windows MSVC RelWithDbgInfo",
+            "displayName": "Windows x64 RelWithDbgInfo",
+            "description": "Windows x64 RelWithDbgInfo settings for MSBuild toolchain that apply to msvc",
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "ENABLE_DEVELOPER_MODE": "ON"
+            }
+        },
+        {
+            "name": "Windows MSVC Release",
+            "displayName": "Windows x64 Release",
+            "description": "Windows x64 Release settings for MSBuild toolchain that apply to msvc",
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "ENABLE_DEVELOPER_MODE": "ON"
+            }
+        },
+        {
+            "name": "Windows MSVC MinSizeRel",
+            "displayName": "Windows x64 MinSizeRel",
+            "description": "Windows x64 MinSizeRel settings for MSBuild toolchain that apply to msvc",
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "MinSizeRel",
+                "ENABLE_DEVELOPER_MODE": "ON"
+            }
+        },
+        {
+            "name": "Windows Clang Debug",
+            "displayName": "Windows Clang Debug",
+            "description": "Target Windows with the clang compiler, debug build type",
+            "hidden": true,
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl",
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "intelliSenseMode": "windows-clang-x64"
+                }
+            }
+        },
+        {
+            "name": "Windows Clang RelWithDebInfo",
+            "displayName": "Windows Clang RelWithDebInfo",
+            "description": "Target Windows with the clang compiler, release build type",
+            "hidden": true,
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "intelliSenseMode": "windows-clang-x64"
+                }
+            }
+        },
+        {
+            "name": "Windows Clang Release",
+            "displayName": "Windows Clang Release",
+            "description": "Target Windows with the clang compiler, release build type",
+            "hidden": true,
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl",
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "intelliSenseMode": "windows-clang-x64"
+                }
+            }
+        },
+        {
+            "name": "Windows Clang MinSizeRel",
+            "displayName": "Windows Clang MinSizeRel",
+            "description": "Target Windows with the clang compiler, release build type",
+            "hidden": true,
+            "inherits": "Windows Default",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl",
+                "CMAKE_BUILD_TYPE": "MinSizeRel"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "intelliSenseMode": "windows-clang-x64"
+                }
+            }
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Test Common",
+            "description": "Test CMake settings that apply to all configurations",
+            "hidden": true,
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "Test Windows MSVC Debug",
+            "displayName": "Strict",
+            "description": "Enable output and stop on failure",
+            "inherits": "Test Common",
+            "configurePreset": "Windows MSVC Debug"
+        },
+        {
+            "name": "Test Windows MSVC Release",
+            "displayName": "Strict",
+            "description": "Enable output and stop on failure",
+            "inherits": "Test Common",
+            "configurePreset": "Windows MSVC Release"
+        },
+        {
+            "name": "Test Windows Clang Debug",
+            "displayName": "Strict",
+            "description": "Enable output and stop on failure",
+            "inherits": "Test Common",
+            "configurePreset": "Windows Clang Debug"
+        },
+        {
+            "name": "Test Windows Clang Release",
+            "displayName": "Strict",
+            "description": "Enable output and stop on failure",
+            "inherits": "Test Common",
+            "configurePreset": "Windows Clang Release"
+        }
+    ]
+}
